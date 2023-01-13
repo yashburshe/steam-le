@@ -13,10 +13,10 @@ let hltbService = new hltb.HowLongToBeatService();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/res'));
+app.use(express.static(__dirname + '/public'));
 
 app.set("view engine", "ejs");
-app.set('port', 3000);
+app.set('port', process.env.PORT);
 
 
 app.get('/', function(req, res) {
@@ -28,7 +28,7 @@ app.get('/games', function(req, res) {
     var steam64
     var username = req.query.steamuname;
     if (username == "") {
-        res.render("error", { message: "Please enter a username" })
+        res.render("error", { message: "Please enter a username", code: 0 })
     }
     let gamesList = []
     let hoursPlayed = []
@@ -79,11 +79,11 @@ app.get('/games', function(req, res) {
                                 res.render("error")
                             })
                     } else {
-                        res.render("error", { message: "The profile is private or has no games" })
+                        res.render("error", { message: "This profile is either private or has no games", code: 1 })
                     }
 
                 }).catch(error => {
-                    res.render("error", { message: "Please enter a valid username" })
+                    res.render("error", { message: "This profile does not exist", code: 2 })
                 })
         })
         .catch(error => {
@@ -93,6 +93,6 @@ app.get('/games', function(req, res) {
 
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log("Started")
 })

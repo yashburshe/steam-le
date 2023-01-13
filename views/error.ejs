@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
@@ -25,6 +25,26 @@
         </strong>
         <% }    %>
     </h1>
+    <% if(code == 1) { %>
+    <div class="wrapper" style="margin: 2rem auto; ">
+        <h2>How to make your Steam profile public</h2>
+        <ol style="text-align: left">
+            <li>
+                From your Steam Profile, click the Edit Profile link under your displayed badge.
+            </li>
+            <li>
+                Click the My Privacy Settings tab
+            </li>
+            <li>
+                Select your privacy state
+            </li>
+            <li>
+                Click the Save button
+            </li>
+        </ol>
+        <img style="width: 400px" src="images/privacy.png" />
+    </div>
+    <% } %>
 </body>
 
 </html>

@@ -1,0 +1,60 @@
+:root {
+    --bodyBackground: #1D2024;
+    --navBackground: #171a21;
+    --cardBackground: #2a475e;
+    --buttonBackground: #1b2838;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: var(--bodyBackground);
+    color: white;
+    margin: auto;
+}
+
+nav {
+    background-color: var(--navBackground);
+    margin-bottom: 2rem;
+}
+
+.nav-wrapper {
+    width: 60vw;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+}
+
+input,
+button {
+    padding: 1rem;
+    border: none;
+}
+
+a {
+    color: white;
+}
+
+button {
+    background-color: var(--buttonBackground);
+    color: white;
+}
+
+.wrapper {
+    max-width: 60vw;
+    margin: auto;
+    text-align: center;
+}
+
+.createURL,
+.findURL {
+    margin-top: 1rem;
+    text-align: left;
+}
