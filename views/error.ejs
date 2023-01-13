@@ -10,13 +10,15 @@
 
 <body>
     <nav>
-        <a href="/">
-            <h1>SLE</h1>
-        </a>
-        <form action="/games" method="GET">
-            <input name="steamuname"></input>
-            <button>Submit</button>
-        </form>
+        <div class="nav-wrapper">
+            <a href="/">
+                <h1>SLE</h1>
+            </a>
+            <form action="/games" method="GET">
+                <input name="steamuname"></input>
+                <button>Submit</button>
+            </form>
+        </div>
     </nav>
     <h1 style="text-align: center;">
         <%   if(typeof message != "undefined" && message) { %>
