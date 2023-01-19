@@ -60,7 +60,7 @@ app.get('/games', function(req, res) {
                         gamebannerPath.push("http://media.steampowered.com/steamcommunity/public/images/apps/" + games[x].appid + "/" + games[x].img_icon_url + ".jpg")
                     }
 
-                    csvContent = "data:text/csv;charset=utf-8\nGame, Hours Played\n";
+                    csvContent = "Game, Hours Played\n";
                     for (var i = 0; i < gamesList.length; i++) {
                         csvContent += "\"" + gamesList[i] + "\"" + "," +
                             hoursPlayed[i]
