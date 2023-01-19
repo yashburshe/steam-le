@@ -26,11 +26,9 @@ app.get('/', function(req, res) {
 })
 
 app.get('/download', function(req, res) {
-    res.setHeader('Content-disposition', 'attachment; filename=steamCSV.csv');
-    res.setHeader('Content-type', 'text/csv');
-    res.charset = 'UTF-8';
-    res.write(csvContent);
-    res.end();
+    res.status(200)
+        .attachment('steam.csv')
+        .send(csvContent)
 })
 
 app.get('/games', function(req, res) {
