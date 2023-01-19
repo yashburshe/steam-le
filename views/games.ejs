@@ -41,14 +41,19 @@
             </div>
         </div>
         <div class="games-list">
-            <h2>
-                <%= gameCount %> games
-            </h2>
+            <div class="table-head">
+                <h2>
+                    <%= gameCount %> games
+                </h2>
+                <form action="/download" method="GET">
+                    <button><img src="download-icon.svg" />Download CSV</button>
+                </form>
+            </div>
             <table>
                 <tr>
                     <th></th>
                     <th>Game</th>
-                    <th>Hours</th>
+                    <th>Playtime (Hrs)</th>
                 </tr>
                 <% for (var i = 0; i < gamesList.length; i++) { %>
                 <tr>

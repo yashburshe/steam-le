@@ -27,3 +27,22 @@ th {
     padding: 1rem;
 
 }
+
+.table-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.table-head button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.table-head button:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}

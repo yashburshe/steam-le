@@ -11,6 +11,8 @@ var bodyParser = require("body-parser");
 let hltb = require("howlongtobeat");
 let hltbService = new hltb.HowLongToBeatService();
 
+let csvContent = ""
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -21,6 +23,14 @@ app.set('port', process.env.PORT);
 
 app.get('/', function(req, res) {
     res.render("index")
+})
+
+app.get('/download', function(req, res) {
+    res.setHeader('Content-disposition', 'attachment; filename=steamCSV.csv');
+    res.setHeader('Content-type', 'text/csv');
+    res.charset = 'UTF-8';
+    res.write(csvContent);
+    res.end();
 })
 
 app.get('/games', function(req, res) {
@@ -52,17 +62,21 @@ app.get('/games', function(req, res) {
                         gamebannerPath.push("http://media.steampowered.com/steamcommunity/public/images/apps/" + games[x].appid + "/" + games[x].img_icon_url + ".jpg")
                     }
 
-                    gamesList.forEach((ele, i) => {
-                        jsonOBJ[ele] = hoursPlayed[i]
-                    })
-
+                    csvContent = "data:text/csv;charset=utf-8\nGame, Hours Played\n";
+                    for (var i = 0; i < gamesList.length; i++) {
+                        csvContent += "\"" + gamesList[i] + "\"" + "," +
+                            hoursPlayed[i]
+                        if (i != (gamesList.length - 1)) {
+                            csvContent += "\n"
+                        }
+                    }
                     if (gamesList != 0) {
                         var playerSummaryURL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + key + "&steamids=" + steam64
                         axios.get(playerSummaryURL)
                             .then(response => {
                                 persona = response.data.response.players[0].personaname
                                 avatar = response.data.response.players[0].avatarmedium
-                                console.log(gamebannerPath)
+
                                 res.render("games", {
                                     gameCount: gameCount,
                                     hoursPlayed: hoursPlayed,
@@ -71,7 +85,8 @@ app.get('/games', function(req, res) {
                                     nickname: persona,
                                     profilepic: avatar,
                                     steam64: steam64,
-                                    gamebannerPath: gamebannerPath
+                                    gamebannerPath: gamebannerPath,
+                                    csvContent: csvContent
                                 })
 
                             })
