@@ -12,69 +12,74 @@
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="/">
-                <h1>SLE</h1>
-            </a>
-            <form action="/games" method="GET">
+            <div class="logo">
+                <img src=" archive.svg" />
+                <a href="/">
+                    <h1>SLE</h1>
+                </a>
+            </div>
+            <form class="searchbar" action="/games" method="GET">
                 <input name="steamuname"></input>
                 <button>Submit</button>
             </form>
         </div>
     </nav>
-    <div class="wrapper">
-        <div class="profile">
-            <img src="
+    <div class="grid-wrapper">
+        <div class="content-wrapper">
+            <div class="profile">
+                <img src="
         <%= profilepic %>
         " />
-            <div>
-                <h1>
-                    <%= nickname %>
-                </h1>
-                <h4>
-                    vanityURL:
-                    <%= uname %>
-                </h4>
-                <h5>
-                    steam64:
-                    <%= steam64 %>
-                </h5>
+                <div>
+                    <h1>
+                        <%= nickname %>
+                    </h1>
+                    <h4>
+                        vanityURL:
+                        <%= uname %>
+                    </h4>
+                    <h5>
+                        steam64:
+                        <%= steam64 %>
+                    </h5>
+                </div>
             </div>
-        </div>
-        <div class="games-list">
-            <div class="table-head">
-                <h2>
-                    <%= gameCount %> games
-                </h2>
-                <form action="/download" method="GET">
-                    <button><img src="download-icon.svg" />Download CSV</button>
-                </form>
-            </div>
-            <table>
-                <tr>
-                    <th></th>
-                    <th>Game</th>
-                    <th>Playtime (Hrs)</th>
-                </tr>
-                <% for (var i = 0; i < gamesList.length; i++) { %>
-                <tr>
-                    <td class="game-icon">
-                        <img src="
-                    <%= gamebannerPath[i] %>
+            <div class="games-list">
+                <div class="table-head">
+                    <h2>
+                        <%= gameCount %> games
+                    </h2>
+                    <form action="/download" method="GET">
+                        <button class="download-button">Download CSV<img src="download-icon.svg" /></button>
+                    </form>
+                </div>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Game</th>
+                        <th>Playtime (Hrs)</th>
+                    </tr>
+                    <% for (var i = 0; i < gamesList.length; i++) { %>
+                    <tr>
+                        <td class="game-icon">
+                            <img src="
+                    <%= gameIconPath[i] %>
                     " />
-                    </td>
-                    <td>
-                        <%= gamesList[i] %>
-                    </td>
-                    <td>
-                        <% if(hoursPlayed[i] == 0){ %>
-                        Never Played
-                        <% }else{ %>
-                        <%= hoursPlayed[i] %>
-                        <% } %>
-                    </td>
-                </tr>
-                <% } %>
-            </table>
+                        </td>
+                        <td>
+                            <%= gamesList[i] %>
+                        </td>
+                        <td>
+                            <% if(hoursPlayed[i] == 0){ %>
+                            Never Played
+                            <% }else{ %>
+                            <%= hoursPlayed[i] %>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
         </div>
     </div>
 </body>

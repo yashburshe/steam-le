@@ -1,48 +1,5 @@
-.profile {
-    text-align: left;
-    display: flex;
-    gap: 1rem;
-}
-
-.games-list {
-    text-align: left;
-    margin: 2rem 0rem;
-}
-
-body {
-    background-color: #1b2838;
-}
-
-table {
-    width: 100%;
-    margin: 1rem 0rem;
-}
-
-tr {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-td,
-th {
-    padding: 1rem;
-
-}
-
-.table-head {
+.download-button {
     display: flex;
     align-items: center;
-    gap: 1rem;
-}
-
-.table-head button {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1rem;
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.table-head button:hover {
-    background-color: rgba(0, 0, 0, 0.4);
+    gap: .5rem;
 }

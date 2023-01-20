@@ -11,33 +11,49 @@
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="/">
-                <h1>SLE</h1>
-            </a>
-            <form action="/games" method="GET">
+            <div class="logo">
+                <img src=" archive.svg" />
+                <a href="/">
+                    <h1>SLE</h1>
+                </a>
+            </div>
+            <form class="searchbar" action="/games" method="GET">
                 <input name="steamuname"></input>
                 <button>Submit</button>
             </form>
         </div>
     </nav>
-    <div class="wrapper">
-        <h2>Welcome to SteamLE</h2>
-        <p>Get started by entering your custom Steam URL</p>
-        <div class="findURL">
-            <h3>Where do I find my custom Steam URL?</h3>
-            <ol>
-                <li>Go to your steam profile</li>
-                <li>https://steamcommunity.com/id/YOURURL</li>
-                <li>'YOURURL' is your custom Steam URL</li>
-            </ol>
-        </div>
-        <div class="createURL">
-            <h3>I don't have a custom Steam URL</h3>
-            <ol>
-                <li>Log in to your account on Steam</li>
-                <li>Click on the "Edit Profile" button</li>
-                <li>Enter your desired name in the "Custom URL" field</li>
-            </ol>
+    <div class="grid-wrapper">
+        <div class="content-wrapper">
+            <div class="games-bg">
+                <div class="games-bg--overlay"></div>
+                <% for(x in gameBannerPaths){ %>
+                <img src="<%= gameBannerPaths[x]%>" />
+                <% } %>
+            </div>
+            <div class="info-wrapper">
+                <div class="info-hero">
+                    <h2>Welcome to SteamLE</h2>
+                    <p>Get started by entering your custom Steam URL</p>
+                </div>
+                <div class="separator"></div>
+                <div class="info">
+                    <h3>Where do I find my custom Steam URL?</h3>
+                    <ol>
+                        <li>Go to your steam profile</li>
+                        <li>https://steamcommunity.com/id/YOURURL</li>
+                        <li>'YOURURL' is your custom Steam URL</li>
+                    </ol>
+                </div>
+                <div class="info">
+                    <h3>I don't have a custom Steam URL</h3>
+                    <ol>
+                        <li>Log in to your account on Steam</li>
+                        <li>Click on the "Edit Profile" button</li>
+                        <li>Enter your desired name in the "Custom URL" field</li>
+                    </ol>
+                </div>
+            </div>
         </div>
     </div>
 </body>
