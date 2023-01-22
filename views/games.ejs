@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Games | SLE</title>
+    <title>
+        <%= nickname %>'s Library | SLE</title>
     <link href="index.css" rel="stylesheet" />
     <link href="games.css" rel="stylesheet" />
 </head>
@@ -26,26 +27,26 @@
     </nav>
     <div class="grid-wrapper">
         <div class="content-wrapper">
-            <div class="profile">
-                <img src="
+            <div class="table-head">
+                <div class="profile">
+                    <img src="
         <%= profilepic %>
         " />
-                <div>
-                    <h1>
-                        <%= nickname %>
-                    </h1>
-                    <h4>
-                        vanityURL:
-                        <%= uname %>
-                    </h4>
-                    <h5>
-                        steam64:
-                        <%= steam64 %>
-                    </h5>
+                    <div>
+                        <h1>
+                            <%= nickname %>
+                        </h1>
+                        <h4>
+                            vanityURL:
+                            <%= uname %>
+                        </h4>
+                        <h5>
+                            steam64:
+                            <%= steam64 %>
+                        </h5>
+                    </div>
                 </div>
-            </div>
-            <div class="games-list">
-                <div class="table-head">
+                <div class="games_dl">
                     <h2>
                         <%= gameCount %> games
                     </h2>
@@ -53,9 +54,11 @@
                         <button class="download-button">Download CSV<img src="download-icon.svg" /></button>
                     </form>
                 </div>
+            </div>
+            <div class="games-list">
                 <table>
                     <tr>
-                        <th></th>
+                        <th>Icon</th>
                         <th>Game</th>
                         <th>Playtime (Hrs)</th>
                     </tr>

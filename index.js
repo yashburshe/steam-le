@@ -12,6 +12,7 @@ let hltb = require("howlongtobeat");
 let hltbService = new hltb.HowLongToBeatService();
 
 let csvContent = ""
+let steamfileusername = ""
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -129,7 +130,7 @@ app.get('/', function(req, res) {
 
 app.get('/download', function(req, res) {
     res.status(200)
-        .attachment('steam.csv')
+        .attachment(steamfileusername + '_steam.csv')
         .send(csvContent)
 })
 
@@ -137,6 +138,7 @@ app.get('/games', function(req, res) {
     const key = process.env.KEY;
     var steam64
     var username = req.query.steamuname;
+    steamfileusername = username
     if (username == "") {
         res.render("error", { message: "Please enter a username", code: 0 })
     }
