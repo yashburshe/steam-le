@@ -5,21 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    <link rel="stylesheet" href="index.css" />
+    <!-- <link rel="stylesheet" href="index.css" /> -->
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="/">
-                <h1>SLE</h1>
-            </a>
-            <form action="/games" method="GET">
-                <input name="steamuname"></input>
-                <button>Submit</button>
-            </form>
-        </div>
-    </nav>
+    <%- include('partials/navbar.ejs') %>
     <h1 style="text-align: center;">
         <%   if(typeof message != "undefined" && message) { %>
         <strong>

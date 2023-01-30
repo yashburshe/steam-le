@@ -6,25 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         <%= nickname %>'s Library | SLE</title>
-    <link href="index.css" rel="stylesheet" />
-    <link href="games.css" rel="stylesheet" />
+    <!-- <link href="index.css" rel="stylesheet" /> -->
+    <!-- <link href="games.css" rel="stylesheet" /> -->
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <div class="logo">
-                <img src=" archive.svg" />
-                <a href="/">
-                    <h1>SLE</h1>
-                </a>
-            </div>
-            <form class="searchbar" action="/games" method="GET">
-                <input name="steamuname"></input>
-                <button>Submit</button>
-            </form>
-        </div>
-    </nav>
+    <%- include('partials/navbar.ejs') %>
     <div class="grid-wrapper">
         <div class="content-wrapper">
             <div class="table-head">
@@ -37,48 +24,61 @@
                             <%= nickname %>
                         </h1>
                         <h4>
-                            vanityURL:
-                            <%= uname %>
+                            <%= steamid %>
                         </h4>
-                        <h5>
-                            steam64:
-                            <%= steam64 %>
-                        </h5>
                     </div>
                 </div>
                 <div class="games_dl">
                     <h2>
-                        <%= gameCount %> games
+                        <%= gamesList.length %> games
                     </h2>
-                    <form action="/download" method="GET">
-                        <button class="download-button">Download CSV<img src="download-icon.svg" /></button>
-                    </form>
                 </div>
             </div>
             <div class="games-list">
-                <table>
-                    <tr>
+                <input type="text" id="search" placeholder="Search" onkeyup="searchGame()" />
+                <table id="table">
+                    <tr id="header">
                         <th>Icon</th>
-                        <th>Game</th>
-                        <th>Playtime (Hrs)</th>
+                        <th>Name <button onclick="sort(1, 0)">/\</button><button onclick="sort(1, 1)">\/</button></th>
+                        <th>Playtime <button onclick="sort(2, 0)">/\</button><button onclick="sort(2, 1)">\/</button></th>
+                        <!-- <th>Windows (Hrs)</th>
+<th>Mac (Hrs)</th>
+<th>Linux (Hrs)</th> -->
                     </tr>
                     <% for (var i = 0; i < gamesList.length; i++) { %>
                     <tr>
                         <td class="game-icon">
                             <img src="
-                    <%= gameIconPath[i] %>
+                        <%= 'http://media.steampowered.com/steamcommunity/public/images/apps/' + gamesList[i].appid + '/' + gamesList[i].img_icon_url +'.jpg' %>
                     " />
                         </td>
                         <td>
-                            <%= gamesList[i] %>
+                            <%= gamesList[i].name %>
                         </td>
                         <td>
-                            <% if(hoursPlayed[i] == 0){ %>
-                            Never Played
+                            <%= (Math.round(gamesList[i].playtime_forever/60*100)/100) %>
+                        </td>
+                        <!-- <td>
+                            <% if((Math.round(gamesList[i].playtime_windows_forever/60*100)/100) == 0){ %>
+                            -
                             <% }else{ %>
-                            <%= hoursPlayed[i] %>
+                            <%= (Math.round(gamesList[i].playtime_windows_forever/60*100)/100) %>
                             <% } %>
                         </td>
+                        <td>
+                            <% if((Math.round(gamesList[i].playtime_mac_forever/60*100)/100) == 0){ %>
+                            -
+                            <% }else{ %>
+                            <%= (Math.round(gamesList[i].playtime_mac_forever/60*100)/100) %>
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if((Math.round(gamesList[i].playtime_linux_forever/60*100)/100) == 0){ %>
+                            -
+                            <% }else{ %>
+                            <%= (Math.round(gamesList[i].playtime_linux_forever/60*100)/100) %>
+                            <% } %>
+                        </td> -->
                     </tr>
                     <% } %>
                 </table>
@@ -86,5 +86,58 @@
         </div>
     </div>
 </body>
+<script>
+var rows = document.getElementById("table").rows
+var table = document.getElementById("table")
+
+function searchGame() {
+    var input = document.getElementById("search").value
+    var val = '^(?=.*\\b' + input.split(/\s+/).join('\\b)(?=.*\\b') + ').*$'
+    reg = RegExp(val, 'i')
+
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].getAttribute('id') == "header") {
+            continue;
+        }
+        text = rows[i].textContent.replace(/\s+/g, ' ')
+        if (!reg.test(text)) {
+            rows[i].style.display = "none";
+        } else {
+            rows[i].style.display = "";
+        }
+    }
+}
+
+function sort(column, direction) {
+    var values = []
+    for (var i = 1; i < rows.length; i++) {
+        if (column == 1) {
+            val = rows[i].children.item(1).innerHTML
+        } else {
+            val = rows[i].children.item(2).innerHTML
+        }
+        values.push({ value: val, row: rows[i] });
+    }
+
+    if (column == 1) {
+        values.sort((a, b) => {
+            if (a.value > b.value) return -1;
+            return 1
+        })
+    } else {
+        values.sort((a, b) => {
+            return b.value - a.value
+        });
+    }
+
+    if (direction != 1) {
+        values.reverse()
+    }
+
+    for (var j = 0; j < values.length; j++) {
+        table.querySelector("tbody").appendChild(values[j].row);
+    }
+}
+</script>
 
 </html>
