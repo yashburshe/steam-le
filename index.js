@@ -25,13 +25,15 @@ app.get('/', function(req, res) {
 
 async function getUser(key, username) {
     let vanityURL = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + key + "&vanityurl=" + username;
-    try {
-        let res = await fetch(vanityURL);
-        return await res.json();
-    } catch (error) {
-        console.log(error);
-        return error
-    }
+    // try {
+    //     let res = await fetch(vanityURL);
+    //     return await res.json();
+    // } catch (error) {
+    //     console.log(error);
+    //     return error
+    // }
+    let res = await fetch(vanityURL)
+    return await res.json();
 }
 
 async function getGames(key, steamid) {
@@ -67,24 +69,31 @@ app.get('/games', async (req, res) => {
             steamid = username;
         } else {
             let user = await getUser(key, username);
+            if (user.response.message == 'No match') {
+                res.render("error", { code: 1, message: "No match" })
+            }
             steamid = user.response.steamid;
         }
-        let gamesOwned = await getGames(key, steamid);
-        csv = "Game, Hours Played\n";
-        for (var i = 0; i < gamesOwned.response.games.length; i++) {
-            csv += "\"" + gamesOwned.response.games[i].name + "\"" + "," +
-                gamesOwned.response.games[i].playtime_forever
-            if (i != (gamesOwned.response.games.length - 1)) {
-                csv += "\n"
-            }
-        }
         let profile = await getProfile(key, steamid);
-        res.render('games', {
-            profilepic: profile.response.players[0].avatarmedium,
-            nickname: profile.response.players[0].personaname,
-            gamesList: gamesOwned.response.games,
-            steamid: steamid
-        })
+        if (profile.response.players[0].communityvisibilitystate == 1 || profile.response.players[0].communityvisibilitystate == 2) {
+            res.render("error", { code: 2, message: "Profile is private" })
+        } else {
+            let gamesOwned = await getGames(key, steamid);
+            csv = "Game, Hours Played\n";
+            for (var i = 0; i < gamesOwned.response.games.length; i++) {
+                csv += "\"" + gamesOwned.response.games[i].name + "\"" + "," +
+                    gamesOwned.response.games[i].playtime_forever
+                if (i != (gamesOwned.response.games.length - 1)) {
+                    csv += "\n"
+                }
+            }
+            res.render('games', {
+                profilepic: profile.response.players[0].avatarmedium,
+                nickname: profile.response.players[0].personaname,
+                gamesList: gamesOwned.response.games,
+                steamid: steamid
+            })
+        }
     }
 });
 
