@@ -4,21 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <!-- <link rel="stylesheet" href="index.css" /> -->
+    <title>Error | SLE</title>
+    <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
     <%- include('partials/navbar.ejs') %>
-    <h1 style="text-align: center;">
-        <%   if(typeof message != "undefined" && message) { %>
-        <strong>
-            <%=  message  %>
-        </strong>
-        <% }    %>
-    </h1>
-    <% if(code == 2) { %>
+    <div class="bg"></div>
     <div class="content-wrapper">
+        <h1 style="text-align: center;">
+            <%   if(typeof message != "undefined" && message) { %>
+            <strong>
+                <%=  message  %>
+            </strong>
+            <% }    %>
+        </h1>
+        <% if(code == 2) { %>
         <h2>How to make your Steam profile public</h2>
         <ol style="text-align: left">
             <li>
@@ -37,6 +38,7 @@
         <img style="width: 400px" src="images/privacy.png" />
     </div>
     <% } %>
+    <%- include('partials/footer.ejs') %>
 </body>
 
 </html>

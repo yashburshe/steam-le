@@ -5,18 +5,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home | SLE</title>
-    <!-- <link rel="stylesheet" href="index.css" /> -->
-    <link href="https://api.fontshare.com/v2/css?f[]=switzer@400&f[]=general-sans@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <%- include('partials/navbar.ejs') %>
+    <div class="bg"></div>
     <div class="grid-wrapper">
         <div class="content-wrapper">
             <div class="info-wrapper">
                 <div class="info-hero">
                     <h2>Welcome to SteamLE</h2>
-                    <p>Get started by entering your custom Steam URL or Steam ID (765XXXXXXXXXXXXXX)</p>
+                    <p>Get started by entering your custom Steam URL or Steam ID</p>
                 </div>
                 <div class="separator"></div>
                 <div class="info">
@@ -25,6 +28,7 @@
                         <li>Go to your steam profile</li>
                         <li>https://steamcommunity.com/id/YOURURL</li>
                         <li>'YOURURL' is your custom Steam URL</li>
+                        <li>Don't have a custom URL? <a href="/help">Click here</a></li>
                     </ol>
                 </div>
                 <div class="info">
@@ -38,6 +42,7 @@
             </div>
         </div>
     </div>
+    <%- include('partials/footer.ejs') %>
 </body>
 
 </html>

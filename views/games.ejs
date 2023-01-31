@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         <%= nickname %>'s Library | SLE</title>
-    <!-- <link href="index.css" rel="stylesheet" /> -->
+    <link href="index.css" rel="stylesheet" />
     <!-- <link href="games.css" rel="stylesheet" /> -->
 </head>
 
 <body>
     <%- include('partials/navbar.ejs') %>
+    <div class="bg"></div>
     <div class="grid-wrapper">
         <div class="content-wrapper">
             <div class="table-head">
@@ -36,12 +37,23 @@
                 </div>
             </div>
             <div class="games-list">
-                <input type="text" id="search" placeholder="Search" onkeyup="searchGame()" />
+                <div class="games-list-header">
+                    <input type="text" id="search" placeholder="Search" onkeyup="searchGame()" />
+                    <div class="sortbox">
+                        <!-- <label for="sort">Sort by</label> -->
+                        <select id="sort" name="sort" onchange="sortHandler()">
+                            <option value="1,0">Name (Asc.)</option>
+                            <option value="1,1">Name (Desc.)</option>
+                            <option value="2,0">Playtime (Asc.)</option>
+                            <option value="2,1">Playtime (Desc.</option>
+                        </select>
+                    </div>
+                </div>
                 <table id="table">
                     <tr id="header">
                         <th>Icon</th>
-                        <th>Name <button onclick="sort(1, 0)">/\</button><button onclick="sort(1, 1)">\/</button></th>
-                        <th>Playtime <button onclick="sort(2, 0)">/\</button><button onclick="sort(2, 1)">\/</button></th>
+                        <th>Name</th>
+                        <th>Playtime</th>
                         <!-- <th>Windows (Hrs)</th>
 <th>Mac (Hrs)</th>
 <th>Linux (Hrs)</th> -->
@@ -86,6 +98,7 @@
             </div>
         </div>
     </div>
+    <%- include('partials/footer.ejs') %>
 </body>
 <script>
 var rows = document.getElementById("table").rows
@@ -138,6 +151,14 @@ function sort(column, direction) {
     for (var j = 0; j < values.length; j++) {
         table.querySelector("tbody").appendChild(values[j].row);
     }
+}
+
+function sortHandler() {
+    let sortDOM = document.getElementById('sort')
+    let selectedValue = sortDOM.options[sortDOM.selectedIndex].value;
+    let column = selectedValue.substring(0, 1)
+    let direction = selectedValue.substring(2, 3)
+    sort(column, direction)
 }
 </script>
 
