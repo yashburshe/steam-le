@@ -140,7 +140,7 @@ footer {
     color: white;
     text-align: center;
     font-size: .7rem;
-    background-color: #1B2838;
+    /*    background-color: #1B2838;*/
     padding: 1rem;
 }
 
@@ -175,6 +175,14 @@ footer a {
     padding: 1rem;
     display: flex;
     justify-content: space-between;
+}
+
+.games_dl a {
+    color: white;
+}
+
+.games_dl a:hover {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .games-list {

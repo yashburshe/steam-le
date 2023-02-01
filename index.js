@@ -6,9 +6,6 @@ var app = express();
 var path = require("path")
 var bodyParser = require("body-parser");
 
-let hltb = require("howlongtobeat");
-let hltbService = new hltb.HowLongToBeatService();
-
 let csv = []
 let nickname
 
@@ -59,7 +56,7 @@ async function getProfile(key, steamid) {
 app.get('/games', async (req, res) => {
     const key = process.env.KEY;
     let steamid;
-
+    let hoursToBeat = []
     var username = req.query.id;
     nickname = username
     if (username == '') {
@@ -71,31 +68,34 @@ app.get('/games', async (req, res) => {
             let user = await getUser(key, username);
             if (user.response.message == 'No match') {
                 res.render("error", { code: 1, message: "No match found" })
-            } else {
-                steamid = user.response.steamid;
-                let profile = await getProfile(key, steamid);
-                if (profile.response.players[0].communityvisibilitystate == 1 || profile.response.players[0].communityvisibilitystate == 2) {
-                    res.render("error", { code: 2, message: "Profile is private" })
-                } else {
-                    let gamesOwned = await getGames(key, steamid);
-                    csv = "Game, Hours Played\n";
-                    for (var i = 0; i < gamesOwned.response.games.length; i++) {
-                        csv += "\"" + gamesOwned.response.games[i].name + "\"" + "," +
-                            gamesOwned.response.games[i].playtime_forever
-                        if (i != (gamesOwned.response.games.length - 1)) {
-                            csv += "\n"
-                        }
-                    }
-                    res.render('games', {
-                        profilepic: profile.response.players[0].avatarmedium,
-                        nickname: profile.response.players[0].personaname,
-                        gamesList: gamesOwned.response.games,
-                        steamid: steamid
-                    })
+                return;
+            }
+            steamid = user.response.steamid;
+
+        }
+        let profile = await getProfile(key, steamid);
+        if (profile.response.players[0].communityvisibilitystate == 1 || profile.response.players[0].communityvisibilitystate == 2) {
+            res.render("error", { code: 2, message: "Profile is private" })
+        } else {
+            let gamesOwned = await getGames(key, steamid);
+
+            csv = "Game, Hours Played\n";
+            for (var i = 0; i < gamesOwned.response.games.length; i++) {
+                hoursToBeat.push(gamesOwned.response.games[i].name)
+                csv += "\"" + gamesOwned.response.games[i].name + "\"" + "," +
+                    gamesOwned.response.games[i].playtime_forever
+                if (i != (gamesOwned.response.games.length - 1)) {
+                    csv += "\n"
                 }
             }
-        }
 
+            res.render('games', {
+                profilepic: profile.response.players[0].avatarmedium,
+                nickname: profile.response.players[0].personaname,
+                gamesList: gamesOwned.response.games,
+                steamid: steamid
+            })
+        }
     }
 });
 
