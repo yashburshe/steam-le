@@ -1,45 +1,46 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Error | SLE</title>
-    <link rel="stylesheet" href="index.css" />
-    <meta name="theme-color" content="#171a21">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <meta name="theme-color" content="#171a21" />
+  </head>
 
-<body>
+  <body>
     <%- include('partials/navbar.ejs') %>
-    <div class="bg"></div>
-    <div class="content-wrapper">
-        <h1 style="text-align: center;">
-            <%   if(typeof message != "undefined" && message) { %>
-            <strong>
-                <%=  message  %>
-            </strong>
-            <% }    %>
+    <div class="container p-5 d-flex justify-content-center">
+      <div>
+        <h1>
+          <% if(typeof message != "undefined" && message) { %>
+          <strong> <%= message %> </strong>
+          <% } %>
         </h1>
         <% if(code == 2) { %>
         <h2>How to make your Steam profile public</h2>
-        <ol style="text-align: left">
-            <li>
-                From your Steam Profile, click the Edit Profile link under your displayed badge.
-            </li>
-            <li>
-                Click the My Privacy Settings tab
-            </li>
-            <li>
-                Select your privacy state
-            </li>
-            <li>
-                Click the Save button
-            </li>
+        <ol>
+          <li>
+            From your Steam Profile, click the Edit Profile link under your
+            displayed badge.
+          </li>
+          <li>Click the My Privacy Settings tab</li>
+          <li>Select your privacy state</li>
+          <li>Click the Save button</li>
         </ol>
-        <img style="width: 400px" src="images/privacy.png" />
+        <img class="img-thumbnail" src="images/privacy.png" />
+      </div>
     </div>
-    <% } %>
-    <%- include('partials/footer.ejs') %>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <% } %> <%- include('partials/footer.ejs') %>
+  </body>
 </html>

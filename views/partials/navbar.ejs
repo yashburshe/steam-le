@@ -1,14 +1,22 @@
-<nav>
-        <div class="nav-wrapper">
-            <div class="logo">
-                <img src=" archive.svg" />
-                <a href="/">
-                    <h1>SteamLE</h1>
-                </a>
-            </div>
-            <form class="searchbar" action="/games" method="GET">
-                <input name="id" placeholder="Enter your steam id/custom url "></input>
-                <button>Submit</button>
-            </form>
+<div class="container p-2">
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">
+        <img src=" archive.svg" />
+        SteamLE
+      </a>
+      <form class="d-flex" action="/games" method="GET">
+        <!-- <input class="form-control" name="id" placeholder="Enter your steam id/custom url "></input> -->
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            name="id"
+            placeholder="Enter your Steam id/Custom URL"
+          />
+          <button class="btn btn-primary">Submit</button>
         </div>
-</nav>
+      </form>
+    </div>
+  </nav>
+</div>
