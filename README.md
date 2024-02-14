@@ -1,4 +1,4 @@
-# SteamLE
+# Steamley
 View your Steam library and export it to .CSV
 ## Local installation guide
 1. Clone the repository
