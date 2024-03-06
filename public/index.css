@@ -91,7 +91,7 @@ nav form > button:hover{
 }
 
 .logged-in > a:nth-child(1){
-    border-right: 1px solid rgb(42, 42, 42);
+    border-right: 2px solid #171d25;
 }
 
 /* Index page */
