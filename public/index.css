@@ -28,7 +28,7 @@ nav{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: .7rem;
+    /* padding: .7rem; */
     box-shadow: 0px 0px 4px black;
     background-color: #171d25;
 }
@@ -51,11 +51,17 @@ nav form{
 
 nav form > input{
     background-color: rgb(40, 40, 40);
+    border: none;
 }
 
 nav form > button{
     background-color: black;
     border: none;
+}
+
+nav form > button:hover{
+    background-color: #1A9FFF;
+    cursor: pointer;
 }
 
 .left input{
@@ -68,10 +74,16 @@ nav form > button{
     padding: .2rem;
 }
 
-.sign-in{
+.sign-in a{
+    background-color: #1B2838;
     display: flex;
+    padding: 0.4rem;
     align-items: center;
     gap: .5rem;
+}
+
+.sign-in a:hover{
+    background-color: #417a9b;
 }
 
 .logged-in{
@@ -89,15 +101,6 @@ nav form > button{
 
 ul, ol{
     margin-left: 24px;
-}
-
-footer{
-    display: flex;
-    justify-content: center;
-}
-
-footer > span {
-    margin-left: 1ch;
 }
 
 .index-wrapper{
@@ -124,6 +127,13 @@ footer > span {
     background-color: black;
     border: none;
 }
+
+.index-wrapper form > button:hover{
+    background-color: #1A9FFF;
+    cursor: pointer;
+}
+
+
 
 /* Games */
 
@@ -154,6 +164,7 @@ footer > span {
     padding: 0.3rem;
     background-color: rgb(40, 40, 40);
     color: white;
+    border: none;
 }
 /* 
 .gamelist-info{
@@ -179,4 +190,23 @@ td{
 
 td:nth-last-child(1){
     text-align: center;
+}
+
+/* Error */
+
+.error-wrapper{
+    text-align: center;
+}
+
+/* Footer */
+
+
+footer{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+footer > span {
+    margin-left: 1ch;
 }
