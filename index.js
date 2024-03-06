@@ -142,10 +142,10 @@ app.get("/help", function (req, res) {
 });
 
 app.get("/account", async function (req, res) {
-  if(!req.user){
-    res.redirect('/')
+  if (!req.user) {
+    res.redirect("/");
   }
-  if(req.user){
+  if (req.user) {
     let gamesList = await getGames(process.env.KEY, req.user.id);
     res.render("account", { user: req.user, gamesList: gamesList });
   }
@@ -199,26 +199,35 @@ app.get("/games", async (req, res) => {
       let gamesOwned = await getGames(key, steamid);
 
       csv = "Game, Hours Played\n";
-      for (var i = 0; i < gamesOwned.response.games.length; i++) {
-        hoursToBeat.push(gamesOwned.response.games[i].name);
-        csv +=
-          '"' +
-          gamesOwned.response.games[i].name +
-          '"' +
-          "," +
-          gamesOwned.response.games[i].playtime_forever;
-        if (i != gamesOwned.response.games.length - 1) {
-          csv += "\n";
-        }
-      }
 
-      res.render("games", {
-        profilepic: profile.response.players[0].avatarmedium,
-        nickname: profile.response.players[0].personaname,
-        gamesList: gamesOwned.response.games,
-        steamid: steamid,
-        user: req.user,
-      });
+      if (!gamesOwned.response.games) {
+        res.render("error", {
+          code: 1,
+          message: "No match found",
+          user: req.user,
+        });
+      } else {
+        for (var i = 0; i < gamesOwned.response.games.length; i++) {
+          hoursToBeat.push(gamesOwned.response.games[i].name);
+          csv +=
+            '"' +
+            gamesOwned.response.games[i].name +
+            '"' +
+            "," +
+            gamesOwned.response.games[i].playtime_forever;
+          if (i != gamesOwned.response.games.length - 1) {
+            csv += "\n";
+          }
+        }
+
+        res.render("games", {
+          profilepic: profile.response.players[0].avatarmedium,
+          nickname: profile.response.players[0].personaname,
+          gamesList: gamesOwned.response.games,
+          steamid: steamid,
+          user: req.user,
+        });
+      }
     }
   }
 });

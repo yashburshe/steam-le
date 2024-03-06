@@ -3,8 +3,7 @@
   <%- include('partials/head.ejs') %>
   <body>
     <%- include('partials/navbar.ejs') %>
-    <div>
-      <div>
+    <div class="content-wrapper error-wrapper">
         <h1>
           <% if(typeof message != "undefined" && message) { %>
           <strong> <%= message %> </strong>
@@ -22,7 +21,6 @@
           <li>Click the Save button</li>
         </ol>
         <img src="images/privacy.png" />
-      </div>
     </div>
     <% } %> <%- include('partials/footer.ejs') %>
   </body>
