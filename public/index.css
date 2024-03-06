@@ -88,7 +88,10 @@ nav form > button:hover{
 
 .logged-in{
     display: flex;
-    gap: 1rem;
+}
+
+.logged-in > a:nth-child(1){
+    border-right: 1px solid rgb(42, 42, 42);
 }
 
 /* Index page */
