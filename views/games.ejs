@@ -1,97 +1,72 @@
 <!DOCTYPE html>
 <html data-bs-theme="dark">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><%= nickname %>'s Library | Steamley</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous"
-    />
-    <meta name="theme-color" content="#171a21" />
-  </head>
-
+  <%- include('partials/head.ejs') %>
   <body>
     <%- include('partials/navbar.ejs') %>
-
-    <div
-      class="container gap-2 d-flex align-items-center justify-content-center p-4"
-    >
-      <img
-        src="
-            <%= profilepic %>
-             "
-      />
-
-      <div class="d-flex flex-column">
-        <h1><%= nickname %></h1>
-        <p>Steamid: <%= steamid %></p>
+    <div class="content-wrapper">
+      <div class="profile">
+        <div class="profile-image">
+          <img
+          src="
+              <%= profilepic %>
+               "
+        />
+        </div>
+        <div>
+          <h1><%= nickname %></h1>
+          <p>Steamid: <%= steamid %></p>
+        </div>
+      </div>
+      <div class="gamelist-info">
+        <div class="game-count">
+          <h2><%= gamesList.length %> games</h2>
+          <a href="/download">Download CSV</a>
+        </div>
+        <div class="game-search">
+          <input
+            type="text"
+            id="search"
+            placeholder="Search"
+            onkeyup="searchGame()"
+          />
+          <select id="sort" name="sort" onchange="sortHandler()">
+            <option value="1,0">Name (Asc.)</option>
+            <option value="1,1">Name (Desc.)</option>
+            <option value="2,0">Playtime (Asc.)</option>
+            <option value="2,1">Playtime (Desc.</option>
+          </select>
+        </div>
+      </div>
+      
+      <div>
+        <table id="table">
+          <thead id="header">
+            <tr>
+              <th scope="col">Icon</th>
+              <th scope="col">Name</th>
+              <th scope="col">Playtime (hrs)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (var i = 0; i < gamesList.length; i++) { %>
+            <tr scope="row">
+              <td>
+                <img
+                  src="<%= 'http://media.steampowered.com/steamcommunity/public/images/apps/' + gamesList[i].appid + '/' + gamesList[i].img_icon_url +'.jpg' %>"
+                />
+              </td>
+              <td><%= gamesList[i].name %></td>
+              <td>
+                <%= (Math.round(gamesList[i].playtime_forever/60*100)/100) %>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
       </div>
     </div>
-
-    <div
-      class="container gap-2 d-flex justify-content-center align-items-center"
-    >
-      <h2><%= gamesList.length %> games</h2>
-      <a class="btn btn-primary" href="/download">Download CSV</a>
-    </div>
-
-    <div class="p-4 container d-flex justify-content-center align-items-center">
-      <input
-        class="m-1 form-control"
-        type="text"
-        id="search"
-        placeholder="Search"
-        onkeyup="searchGame()"
-      />
-      <!-- <label for="sort">Sort by</label> -->
-      <select
-        class="m-1 form-select"
-        id="sort"
-        name="sort"
-        onchange="sortHandler()"
-      >
-        <option value="1,0">Name (Asc.)</option>
-        <option value="1,1">Name (Desc.)</option>
-        <option value="2,0">Playtime (Asc.)</option>
-        <option value="2,1">Playtime (Desc.</option>
-      </select>
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <table class="table container-sm" id="table">
-        <thead id="header">
-          <tr>
-            <th scope="col">Icon</th>
-            <th scope="col">Name</th>
-            <th scope="col">Playtime (hrs)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (var i = 0; i < gamesList.length; i++) { %>
-          <tr scope="row">
-            <td>
-              <img
-                src="
-                                    <%= 'http://media.steampowered.com/steamcommunity/public/images/apps/' + gamesList[i].appid + '/' + gamesList[i].img_icon_url +'.jpg' %>
-                                    "
-              />
-            </td>
-            <td><%= gamesList[i].name %></td>
-            <td>
-              <%= (Math.round(gamesList[i].playtime_forever/60*100)/100) %>
-            </td>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
-    </div>
-
     <%- include('partials/footer.ejs') %>
   </body>
-
   <script>
     var rows = document.getElementById("table").rows;
     var table = document.getElementById("table");
@@ -150,9 +125,4 @@
       sort(column, direction);
     }
   </script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"
-  ></script>
 </html>

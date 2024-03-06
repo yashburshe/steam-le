@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+  <%- include('partials/head.ejs') %>
+  <body>
+    <%- include('partials/navbar.ejs') %>
+    <div class="content-wrapper">
+      <p>Steam ID: <%= user._json.steamid %></p>
+      <p>Community Visibility: <%= user._json.communityvisibilitystate %></p>
+      <p>Persona Name: <%= user._json.personaname %></p>
+      <p>
+        <a href="<%=user._json.profileurl %>">Profile URL</a>
+      </p>
+      <p>
+        <img src="<%=user._json.avatarfull %>" alt="" />
+      </p>
+      <p>Last Log Off: <%= new Date(user._json.lastlogoff * 1000) %></p>
+      <p>Account Created:  <%= new Date(user._json.timecreated * 1000) %></p>
+    </div>
+  
+  <!-- <p> <%= JSON.stringify(gamesList, null, 2) %></p> -->
+</html>

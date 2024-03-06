@@ -1,63 +1,44 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Home | Steamley</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,600;1,400;1,600&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="theme-color" content="#171a21" />
-  </head>
-
+<html>
+  <%- include('partials/head.ejs') %>
   <body>
     <%- include('partials/navbar.ejs') %>
-
-    <div class="container p-5 text-center">
-      <h2>Welcome to Steamley</h2>
-      <p>Get started by entering your custom Steam URL or Steam ID</p>
-    </div>
-
-    <div class="container d-flex justify-content-center">
-      <div>
-        <h3>Where do I find my custom Steam URL?</h3>
-        <ol>
-          <li>Go to your steam profile</li>
-          <li>https://steamcommunity.com/id/YOURURL</li>
-          <li>'YOURURL' is your custom Steam URL</li>
-        </ol>
-        <h3>Where do I find my Steam ID?</h3>
-        <ol>
-          <li>Log in to your account on Steam</li>
-          <li>Go to your profile</li>
-          <li>https://steamcommunity.com/profile/765XXXXXXXXXXXXXX</li>
-        </ol>
-        <h3>How to create a custom URL</h3>
-        <ol>
-          <li>Go to your Steam profile</li>
-          <li>Click 'Edit Profile'</li>
-          <li>Scroll to 'Set a custom URL'</li>
-          <li>
-            You can set whatever to be your custom URL as long as it is unique
-          </li>
-          <li>Save your profile</li>
-        </ol>
+    <div class="content-wrapper">
+      <div class="index-wrapper">
+        <form action="/games" method="GET">
+          <input
+            type="text"
+            name="id"
+            placeholder="Enter your Steam id/Custom URL"
+          />
+          <button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+        </form>
+        <h2>Welcome to the Boiler Room</h2>
+        <p>Get started by entering your custom Steam URL or Steam ID</p>
+          <h3>Where do I find my custom Steam URL?</h3>
+          <ol>
+            <li>Go to your steam profile</li>
+            <li>https://steamcommunity.com/id/YOURURL</li>
+            <li>'YOURURL' is your custom Steam URL</li>
+          </ol>
+          <h3>Where do I find my Steam ID?</h3>
+          <ol>
+            <li>Log in to your account on Steam</li>
+            <li>Go to your profile</li>
+            <li>https://steamcommunity.com/profile/765XXXXXXXXXXXXXX</li>
+          </ol>
+          <h3>How to create a custom URL</h3>
+          <ol>
+            <li>Go to your Steam profile</li>
+            <li>Click 'Edit Profile'</li>
+            <li>Scroll to 'Set a custom URL'</li>
+            <li>
+              You can set whatever to be your custom URL as long as it is unique
+            </li>
+            <li>Save your profile</li>
+          </ol>
       </div>
-    </div>
+    </div> 
     <%- include('partials/footer.ejs') %>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>

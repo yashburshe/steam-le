@@ -1,22 +1,37 @@
-<div class="container p-2">
-  <nav class="navbar">
-    <div class="container-fluid">
-      <a href="/" class="navbar-brand">
-        <img src=" archive.svg" />
-        Steamley
-      </a>
-      <form class="d-flex" action="/games" method="GET">
-        <!-- <input class="form-control" name="id" placeholder="Enter your steam id/custom url "></input> -->
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            name="id"
-            placeholder="Enter your Steam id/Custom URL"
-          />
-          <button class="btn btn-primary">Submit</button>
-        </div>
-      </form>
-    </div>
-  </nav>
-</div>
+<nav>
+  <div class="left">
+    <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M21 3.6V20.4C21 20.7314 20.7314 21 20.4 21H3.6C3.26863 21 3 20.7314 3 20.4V3.6C3 3.26863 3.26863 3 3.6 3H20.4C20.7314 3 21 3.26863 21 3.6Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.99995 6C7.99995 6 5.5 9 7.99995 12C10.4999 15 7.99995 18 7.99995 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11.9999 6C11.9999 6 9.5 9 11.9999 12C14.4999 15 11.9999 18 11.9999 18" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.9999 6C15.9999 6 13.5 9 15.9999 12C18.4999 15 15.9999 18 15.9999 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <a href="/"> the Boiler Room </a>
+    <form action="/games" method="GET">
+      <input
+        type="text"
+        name="id"
+        required
+        placeholder="Enter your Steam id/Custom URL"
+      />
+      <button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+    </form>
+  </div>
+  <div class="sign-in">
+    <% if (!user) { %>
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 16 16"
+      class="octicon octicon-steam"
+      aria-hidden="true"
+      fill="white"
+    >
+      <path
+        d="M8 0a8 8 0 00-8 7.47c.07.1.13.21.18.32l4.15 1.67a2.2 2.2 0 011.31-.36l1.97-2.8v-.04c0-1.65 1.37-3 3.05-3a3.03 3.03 0 013.05 3 3.03 3.03 0 01-3.12 3l-2.81 1.97c0 .3-.05.6-.17.9a2.25 2.25 0 01-4.23-.37L.4 10.56A8.01 8.01 0 108 0zm2.66 4.27c-1.12 0-2.03.9-2.03 2s.91 1.99 2.03 1.99c1.12 0 2.03-.9 2.03-2s-.9-2-2.03-2zm0 .5c.85 0 1.53.66 1.53 1.49s-.68 1.5-1.53 1.5c-.84 0-1.52-.67-1.52-1.5s.68-1.5 1.52-1.5zM5.57 9.6c-.22 0-.43.04-.62.11l1.02.42c.65.26.95.99.68 1.62-.27.63-1 .93-1.65.67l-1-.4a1.73 1.73 0 003.13-.08c.18-.42.18-.88.01-1.3A1.69 1.69 0 005.57 9.6z"
+      ></path>
+    </svg>
+    <a href="auth/steam"> Sign in</a>
+    <% } else { %>
+      <div class="logged-in">
+        <a href="/account"><%= user.displayName %></a>
+        <a href="logout">Logout</a>
+      </div>
+    <% } %>
+  </div>
+</nav>
