@@ -1,0 +1,20 @@
+{
+    "name": "the Boiler Room",
+    "short_name": "Boiler Room",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#171d25",
+    "description": "View and download any Steam user's library to .csv",
+    "icons": [
+      {
+        "src": "res/icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "res/icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
