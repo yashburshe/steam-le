@@ -1,8 +1,8 @@
-# the Boiler Room
+# Steam2csv
 View anyone's Steam library and export it to .CSV
 
 ## Website
-You can find a release version running over at [this website](https://boiler.yashburshe.com)
+You can find a release version running over at [this website](https://steam2csv.yashburshe.com)
 
 ## Local installation guide
 1. Clone the repository
