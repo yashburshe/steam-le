@@ -14,8 +14,8 @@ var SteamStrategy = require("passport-steam").Strategy;
 // GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return";
 // GRealm = "http://localhost:" + process.env.PORT;
 
-GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return";
-GRealm = "https://steam2csv.yashburshe.com/";
+GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
+GRealm = "https://steam2csv.yashburshe.com/"
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -153,31 +153,21 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    console.log(process.env.key);
-    let steamid = req.user.id;
-    console.log(steamid);
-    async function getGames(key, steamid) {
-      let gamesURL =
-        "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" +
-        key +
-        "&steamid=" +
-        steamid +
-        "&format=json&include_appinfo=TRUE";
-      try {
-        let res = await fetch(gamesURL);
-        let gamesList = await res.json();
-        res.render("account", {
-          user: req.user,
-          gamesList: gamesList.response.games,
-        });
-      } catch (error) {
-        console.log(error);
-        res.render("error", {
-          code: 4,
-          message: "Something went wrong",
-          user: req.user,
-        });
-      }
+    let OMGKEY = process.env.BRUHKEY
+    try {
+      let gamesList = await getGames(OMGKEY, req.user.id);
+      console.log(gamesList);
+      res.render("account", {
+        user: req.user,
+        gamesList: gamesList.response.games
+      });
+    } catch (error) {
+      console.log(error);
+      res.render("error", {
+        code: 4,
+        message: "Something went wrong",
+        user: req.user,
+      });
     }
   }
 });
