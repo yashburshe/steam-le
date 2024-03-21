@@ -153,8 +153,7 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    let key = process.env.key;
-    console.log(key);
+    console.log(process.env.key);
     let steamid = req.user.id;
     console.log(steamid);
     async function getGames(key, steamid) {
