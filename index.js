@@ -11,11 +11,11 @@ var session = require("express-session");
 var SteamStrategy = require("passport-steam").Strategy;
 
 // Development variables
-// GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return"
-// GRealm = "http://localhost:" + process.env.PORT
+GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return"
+GRealm = "http://localhost:" + process.env.PORT
 
-GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
-GRealm = "https://steam2csv.yashburshe.com/"
+// GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
+// GRealm = "https://steam2csv.yashburshe.com/"
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -153,9 +153,16 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    let accountGamesOwned = await getGames(process.env.key, req.user.id);
+    try{
+      let accountGamesOwned = await getGames(process.env.key, req.user.id);
     console.log(accountGamesOwned);
     res.render("account", { user: req.user, gamesList: accountGamesOwned.response.games, });
+    }
+    catch(error){
+      console.log(error)
+      res.render("error", { code: 4, message: "Something went wrong", user: req.user})
+    }
+    
   }
 });
 
