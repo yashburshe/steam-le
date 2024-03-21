@@ -154,6 +154,7 @@ app.get("/account", async function (req, res) {
   }
   if (req.user) {
     let OMGKEY = process.env.BRUHKEY
+    console.log(OMGKEY)
     try {
       let gamesList = await getGames(OMGKEY, req.user.id);
       console.log(gamesList);
