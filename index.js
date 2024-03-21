@@ -92,6 +92,21 @@ async function getGames(key, steamid) {
   }
 }
 
+async function getGamesNoJSON(key, steamid) {
+  let gamesURL =
+    "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" +
+    key +
+    "&steamid=" +
+    steamid +
+    "&format=json&include_appinfo=TRUE";
+  try {
+    let res = await fetch(gamesURL);
+    return await res;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function getProfile(key, steamid) {
   let profileURL =
     "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" +
@@ -156,7 +171,7 @@ app.get("/account", async function (req, res) {
     let key = process.env.key
     let steamid = req.user.id
     try {
-      let gamesList = await getGames(key, steamid);
+      let gamesList = await getGamesNoJSON(key, steamid);
       res.render("account", {
         user: req.user,
         gamesList: gamesList.response.games
