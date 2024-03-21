@@ -153,9 +153,9 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    let gamesOwned = await getGames(process.env.key, req.user.id);
-    console.log(gamesOwned);
-    res.render("account", { user: req.user, gamesList: gamesOwned.response.games, });
+    let accountGamesOwned = await getGames(process.env.key, req.user.id);
+    console.log(accountGamesOwned);
+    res.render("account", { user: req.user, gamesList: accountGamesOwned.response.games, });
   }
 });
 
