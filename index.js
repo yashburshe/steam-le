@@ -11,13 +11,11 @@ var session = require("express-session");
 var SteamStrategy = require("passport-steam").Strategy;
 
 // Development variables
-GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return"
-GRealm = "http://localhost:" + process.env.PORT
+// GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return"
+// GRealm = "http://localhost:" + process.env.PORT
 
-console.log(GReturnURL, GRealm)
-
-// GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
-// GRealm = "https://steam2csv.yashburshe.com/"
+GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
+GRealm = "https://steam2csv.yashburshe.com/"
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -155,7 +153,6 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    console.log(req.user.id)
     let gamesOwned = await getGames(process.env.key, req.user.id);
     res.render("account", { user: req.user, gamesList: gamesOwned.response.games, });
   }
