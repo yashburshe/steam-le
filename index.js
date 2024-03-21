@@ -14,8 +14,8 @@ var SteamStrategy = require("passport-steam").Strategy;
 // GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return";
 // GRealm = "http://localhost:" + process.env.PORT;
 
-GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
-GRealm = "https://steam2csv.yashburshe.com/"
+GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return";
+GRealm = "https://steam2csv.yashburshe.com/";
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -92,21 +92,6 @@ async function getGames(key, steamid) {
   }
 }
 
-async function getGamesNoJSON(key, steamid) {
-  let gamesURL =
-    "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" +
-    key +
-    "&steamid=" +
-    steamid +
-    "&format=json&include_appinfo=TRUE";
-  try {
-    let res = await fetch(gamesURL);
-    return await res;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 async function getProfile(key, steamid) {
   let profileURL =
     "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" +
@@ -168,21 +153,32 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    let key = process.env.key
-    let steamid = req.user.id
-    try {
-      let gamesList = await getGamesNoJSON(key, steamid);
-      res.render("account", {
-        user: req.user,
-        gamesList: gamesList.response.games
-      });
-    } catch (error) {
-      console.log(error);
-      res.render("error", {
-        code: 4,
-        message: "Something went wrong",
-        user: req.user,
-      });
+    let key = process.env.key;
+    console.log(key);
+    let steamid = req.user.id;
+    console.log(steamid);
+    async function getGames(key, steamid) {
+      let gamesURL =
+        "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" +
+        key +
+        "&steamid=" +
+        steamid +
+        "&format=json&include_appinfo=TRUE";
+      try {
+        let res = await fetch(gamesURL);
+        let gamesList = await res.json();
+        res.render("account", {
+          user: req.user,
+          gamesList: gamesList.response.games,
+        });
+      } catch (error) {
+        console.log(error);
+        res.render("error", {
+          code: 4,
+          message: "Something went wrong",
+          user: req.user,
+        });
+      }
     }
   }
 });
