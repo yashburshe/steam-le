@@ -153,8 +153,10 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
+    let key = process.env.key
+    let steamid = req.user.id
     try {
-      let gamesList = await getGames(process.env.key, req.user.id);
+      let gamesList = await getGames(key, steamid);
       console.log(gamesList);
       res.render("account", {
         user: req.user,
