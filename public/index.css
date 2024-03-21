@@ -76,6 +76,7 @@ nav form > button:hover {
 }
 
 .left {
+  max-width: 600px;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -109,6 +110,10 @@ nav form > button:hover {
 
 .logged-in > a:nth-child(1) {
   border-right: 2px solid #171d25;
+}
+
+.mobile-search {
+  display: none;
 }
 
 /* Index page */
@@ -235,7 +240,8 @@ td:nth-last-child(1) {
 
 footer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem;
 }
 
@@ -244,10 +250,6 @@ footer > span {
 }
 
 /* Media queries */
-
-.mobile-search {
-  display: none;
-}
 
 @media screen and (max-width: 640px) {
   table {
@@ -267,6 +269,7 @@ footer > span {
     width: 100%;
     font-size: 1.2rem;
     padding: 0.2rem;
+    color: white;
   }
   .mobile-search button {
     padding: 0.2rem;
@@ -281,5 +284,15 @@ footer > span {
   }
   .index-wrapper form {
     display: none;
+  }
+  .profile-banner{
+    align-items: center;
+    flex-direction: column;
+  }
+  .profile-banner img{
+    width: 92px;
+  }
+  footer{
+    font-size: .9rem;
   }
 }
