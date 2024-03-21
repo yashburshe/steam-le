@@ -64,6 +64,18 @@ nav form > button:hover{
     cursor: pointer;
 }
 
+.logo{
+    display: flex;
+    gap: .4rem;
+    padding: 0 1rem;
+}
+
+.left{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .left input{
     width: 26ch;
     padding: .2rem;
@@ -136,8 +148,6 @@ ul, ol{
     cursor: pointer;
 }
 
-
-
 /* Games */
 
 .profile{
@@ -169,12 +179,6 @@ ul, ol{
     color: white;
     border: none;
 }
-/* 
-.gamelist-info{
-    display: flex;
-    justify-content: space-between;
-    padding: .8rem;
-} */
 
 .game-count{
     display: flex;
@@ -184,6 +188,7 @@ ul, ol{
 }
 
 table{
+    width: 510px;
     margin: 1rem auto;
 }
 
@@ -193,6 +198,25 @@ td{
 
 td:nth-last-child(1){
     text-align: center;
+}
+
+/* Profile */
+
+.profile-banner{
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    background-color: hsla(214, 23%, 12%, 0.5);
+    padding: 1rem;
+}
+
+.profile-banner img{
+    object-fit: contain;
+}
+
+.profile-games{
+    padding-top: 1rem;
+    background-color: #171d25;
 }
 
 /* Error */
@@ -212,4 +236,45 @@ footer{
 
 footer > span {
     margin-left: 1ch;
+}
+
+/* Media queries */
+
+.mobile-search{
+    display: none;
+}
+
+@media screen and (max-width: 640px) {
+    table{
+        width: auto;
+    }
+    nav{
+        flex-direction: column;
+    }
+    .left{
+        padding: 1rem;
+    }
+    .mobile-search{
+        width: 100%;
+        display: flex;
+    }
+    .mobile-search input{
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 0.2rem;
+    }
+    .mobile-search button{
+        padding: 0.2rem;
+        width: 48px;
+    }
+    .desktop-search{
+        display: none;
+    }
+    .index-wrapper ol{
+        font-size: .8rem;
+        word-wrap: break-word;
+    }
+    .index-wrapper form{
+        display: none;
+    }
 }

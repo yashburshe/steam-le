@@ -10,6 +10,15 @@ var util = require("util");
 var session = require("express-session");
 var SteamStrategy = require("passport-steam").Strategy;
 
+// Development variables
+GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return"
+GRealm = "http://localhost:" + process.env.PORT
+
+console.log(GReturnURL, GRealm)
+
+// GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
+// GRealm = "https://steam2csv.yashburshe.com/"
+
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -21,8 +30,8 @@ passport.deserializeUser(function (obj, done) {
 passport.use(
   new SteamStrategy(
     {
-      returnURL: "https://steam2csv.yashburshe.com/auth/steam/return",
-      realm: "https://steam2csv.yashburshe.com/",
+      returnURL: GReturnURL,
+      realm: GRealm,
       apiKey: process.env.KEY,
     },
     function (identifier, profile, done) {
@@ -146,8 +155,9 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    let gamesList = await getGames(process.env.KEY, req.user.id);
-    res.render("account", { user: req.user, gamesList: gamesList });
+    console.log(req.user.id)
+    let gamesOwned = await getGames(process.env.key, req.user.id);
+    res.render("account", { user: req.user, gamesList: gamesOwned.response.games, });
   }
 });
 
@@ -161,7 +171,7 @@ app.get("/download", (req, res) => {
 app.get("/games", async (req, res) => {
   const key = process.env.KEY;
   let steamid;
-  let hoursToBeat = [];
+  hoursToBeat = []
   var username = req.query.id;
   nickname = username;
   if (username == "") {

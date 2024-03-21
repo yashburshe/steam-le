@@ -4,18 +4,123 @@
   <body>
     <%- include('partials/navbar.ejs') %>
     <div class="content-wrapper">
-      <p>Steam ID: <%= user._json.steamid %></p>
-      <p>Community Visibility: <%= user._json.communityvisibilitystate %></p>
-      <p>Persona Name: <%= user._json.personaname %></p>
-      <p>
-        <a href="<%=user._json.profileurl %>">Profile URL</a>
-      </p>
-      <p>
-        <img src="<%=user._json.avatarfull %>" alt="" />
-      </p>
-      <p>Last Log Off: <%= new Date(user._json.lastlogoff * 1000) %></p>
-      <p>Account Created:  <%= new Date(user._json.timecreated * 1000) %></p>
+      <div class="profile-banner">
+        <img src="<%=user._json.avatarfull %>" alt="Steam profile picture" />
+        <div class="profile-banner-info">
+          <p>Persona Name: <%= user._json.personaname %></p>
+          (<a href="<%=user._json.profileurl %>">Profile URL</a>)
+          <p>Steam ID: <%= user._json.steamid %></p>
+          <p>Community Visibility: <%= user._json.communityvisibilitystate %></p>
+          <p>Last Log Off: <%= new Date(user._json.lastlogoff * 1000).toDateString() %></p>
+          <p>Account Created:  <%= new Date(user._json.timecreated * 1000).toDateString() %></p>
+        </div>
+      </div>
+      <div class="profile-games">
+        <div class="gamelist-info">
+          <div class="game-count">
+            <h2><%= gamesList.length %> games</h2>
+            <a href="/download">Download CSV</a>
+          </div>
+          <div class="game-search">
+            <input
+              type="text"
+              id="search"
+              placeholder="Search"
+              onkeyup="searchGame()"
+            />
+            <select id="sort" name="sort" onchange="sortHandler()">
+              <option value="1,0">Name (Asc.)</option>
+              <option value="1,1">Name (Desc.)</option>
+              <option value="2,0">Playtime (Asc.)</option>
+              <option value="2,1">Playtime (Desc.</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <table id="table">
+            <thead id="header">
+              <tr>
+                <th scope="col">Icon</th>
+                <th scope="col">Name</th>
+                <th scope="col">Playtime (hrs)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (var i = 0; i < gamesList.length; i++) { %>
+              <tr scope="row">
+                <td>
+                  <img
+                    src="<%= 'http://media.steampowered.com/steamcommunity/public/images/apps/' + gamesList[i].appid + '/' + gamesList[i].img_icon_url +'.jpg' %>"
+                  />
+                </td>
+                <td><%= gamesList[i].name %></td>
+                <td>
+                  <%= (Math.round(gamesList[i].playtime_forever/60*100)/100) %>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
     </div>
+    <script>
+      var rows = document.getElementById("table").rows;
+      var table = document.getElementById("table");
   
-  <!-- <p> <%= JSON.stringify(gamesList, null, 2) %></p> -->
+      function searchGame() {
+        var input = document.getElementById("search").value;
+        var val = "^(?=.*\\b" + input.split(/\s+/).join("\\b)(?=.*\\b") + ").*$";
+        reg = RegExp(val, "i");
+  
+        for (var i = 1; i < rows.length; i++) {
+          text = rows[i].textContent.replace(/\s+/g, " ");
+          if (!reg.test(text)) {
+            rows[i].style.display = "none";
+          } else {
+            rows[i].style.display = "";
+          }
+        }
+      }
+  
+      function sort(column, direction) {
+        var values = [];
+        for (var i = 1; i < rows.length; i++) {
+          if (column == 1) {
+            val = rows[i].children.item(1).innerHTML;
+          } else {
+            val = rows[i].children.item(2).innerHTML;
+          }
+          values.push({ value: val, row: rows[i] });
+        }
+  
+        if (column == 1) {
+          values.sort((a, b) => {
+            if (a.value.toUpperCase() > b.value.toUpperCase()) return -1;
+            return 1;
+          });
+        } else {
+          values.sort((a, b) => {
+            return b.value - a.value;
+          });
+        }
+  
+        if (direction != 1) {
+          values.reverse();
+        }
+  
+        for (var j = 0; j < values.length; j++) {
+          table.querySelector("tbody").appendChild(values[j].row);
+        }
+      }
+  
+      function sortHandler() {
+        let sortDOM = document.getElementById("sort");
+        let selectedValue = sortDOM.options[sortDOM.selectedIndex].value;
+        let column = selectedValue.substring(0, 1);
+        let direction = selectedValue.substring(2, 3);
+        sort(column, direction);
+      }
+    </script>
 </html>
