@@ -157,7 +157,6 @@ app.get("/account", async function (req, res) {
     let steamid = req.user.id
     try {
       let gamesList = await getGames(key, steamid);
-      console.log(gamesList);
       res.render("account", {
         user: req.user,
         gamesList: gamesList.response.games
