@@ -11,11 +11,11 @@ var session = require("express-session");
 var SteamStrategy = require("passport-steam").Strategy;
 
 // Development variables
-GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return"
-GRealm = "http://localhost:" + process.env.PORT
+// GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return"
+// GRealm = "http://localhost:" + process.env.PORT
 
-// GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
-// GRealm = "https://steam2csv.yashburshe.com/"
+GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
+GRealm = "https://steam2csv.yashburshe.com/"
 
 passport.serializeUser(function (user, done) {
   done(null, user);
