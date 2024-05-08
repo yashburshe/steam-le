@@ -1,10 +1,7 @@
 # Steam2csv
 View anyone's Steam library and export it to .CSV
 
-## Website
-You can find a release version running over at [this website](https://steam2csv.yashburshe.com)
-
-## Local installation guide
+## Installation guide
 > :exclamation: Running this project requires you to register for a Steam Web API Key which you can do over [here](https://steamcommunity.com/dev)
 
 1. Clone the repository
