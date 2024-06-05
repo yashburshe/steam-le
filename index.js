@@ -11,11 +11,8 @@ var session = require("express-session");
 var SteamStrategy = require("passport-steam").Strategy;
 
 // Development variables
-GReturnURL = "http://localhost:" + process.env.PORT + "/auth/steam/return";
-GRealm = "http://localhost:" + process.env.PORT;
-
-// GReturnURL = "https://steam2csv.yashburshe.com/auth/steam/return"
-// GRealm = "https://steam2csv.yashburshe.com/"
+GReturnURL = process.env.GRETURNURL;
+GRealm = process.env.GREALM;
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -30,7 +27,7 @@ passport.use(
     {
       returnURL: GReturnURL,
       realm: GRealm,
-      apiKey: process.env.KEY,
+      apiKey: process.env.STEAM_API_KEY,
     },
     function (identifier, profile, done) {
       process.nextTick(function () {
@@ -153,12 +150,12 @@ app.get("/account", async function (req, res) {
     res.redirect("/");
   }
   if (req.user) {
-    let OMGKEY = process.env.BRUHKEY
+    let OMGKEY = process.env.STEAM_API_KEY;
     try {
       let gamesList = await getGames(OMGKEY, req.user.id);
       res.render("account", {
         user: req.user,
-        gamesList: gamesList.response.games
+        gamesList: gamesList.response.games,
       });
     } catch (error) {
       console.log(error);
@@ -179,7 +176,7 @@ app.get("/download", (req, res) => {
 });
 
 app.get("/games", async (req, res) => {
-  const key = process.env.KEY;
+  const key = process.env.STEAM_API_KEY;
   let steamid;
   hoursToBeat = [];
   var username = req.query.id;
