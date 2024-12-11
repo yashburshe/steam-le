@@ -7,7 +7,14 @@ const RATE_LIMIT = 32;
 const MAX_RETRIES = 3;
 
 export async function getTimeToBeat(appId: number) {
-  async function fetchWithRetry(url: string, body: string, retryCount = 0): Promise<any> {
+  interface IGDBResponse {
+    game: number;
+    hastily?: number;
+    normally?: number;
+    completely?: number;
+  }
+
+  async function fetchWithRetry(url: string, body: string, retryCount = 0): Promise<IGDBResponse[]> {
     try {
       const igdbres = await fetch(url, {
         cache: "force-cache",
