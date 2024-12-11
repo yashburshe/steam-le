@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/react-csv": "^1.1.10",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-csv": "^2.2.2",

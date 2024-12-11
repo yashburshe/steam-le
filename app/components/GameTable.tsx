@@ -15,7 +15,9 @@ export default function GameTable({
 }) {
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [csvData, setCsvData] = useState<unknown>([]);
+  const [csvData, setCsvData] = useState<
+    { Game: string; "Time to beat": string; "Hours Played": string }[]
+  >([]);
 
   useEffect(() => {
     async function fetchGames() {
