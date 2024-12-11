@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { Game } from "./types";
 
 const RATE_LIMIT = 2; // Max requests per second
 const MAX_CONCURRENT_REQUESTS = 1; // Max open requests
@@ -57,18 +58,18 @@ function processNextRequest() {
 
 export async function getTimeToBeat(appId: number) {
   const search_url = "https://api.igdb.com/v4/websites";
-  const igdbres = await rateLimitRequest(() =>
+  const igdbres = (await rateLimitRequest(() =>
     fetch(search_url, {
       cache: "force-cache",
       method: "POST",
-      headers: {
+      headers: new Headers({
         Accept: "application/json",
-        "Client-ID": process.env.IGDB_CLIENT_ID,
+        "Client-ID": process.env.IGDB_CLIENT_ID || "",
         Authorization: `Bearer ${TOKEN}`,
-      },
+      }),
       body: `fields game; where url="https://store.steampowered.com/app/${appId}";`,
     })
-  );
+  )) as Response;
 
   const json2 = await igdbres.json();
 
@@ -79,18 +80,18 @@ export async function getTimeToBeat(appId: number) {
   const igdbId = json2[0].game;
 
   const timeToBeatURL = "https://api.igdb.com/v4/game_time_to_beats";
-  const igdbres3 = await rateLimitRequest(() =>
+  const igdbres3 = (await rateLimitRequest(() =>
     fetch(timeToBeatURL, {
       cache: "force-cache",
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Client-ID": process.env.IGDB_CLIENT_ID,
+        "Client-ID": process.env.IGDB_CLIENT_ID || "",
         Authorization: `Bearer ${TOKEN}`,
       },
       body: `fields game_id, normally; where game_id = ${igdbId};`,
     })
-  );
+  )) as Response;
 
   const json3 = await igdbres3.json();
 
@@ -127,13 +128,13 @@ export async function getUserGames(steamId: string) {
   const games = await json.response.games;
 
   const gamesWithTimeToBeat = await Promise.all(
-    games.map(async (game: any) => {
-      const minutes = game.playtime_forever;
+    games.map(async (game: Game) => {
+      const minutes = Number(game.playtime_forever);
       const hours = Math.floor(minutes / 60);
       const remainingMinutes = minutes % 60;
       const timeString = `${hours}h ${remainingMinutes}m`;
       let timeStringTTB;
-      const ttb = await getTimeToBeat(game.appid);
+      const ttb = await getTimeToBeat(Number(game.appid));
       if (ttb === undefined) {
         timeStringTTB = "-";
       } else {
