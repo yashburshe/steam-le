@@ -5,7 +5,7 @@ import Link from "next/link";
 export default async function User({
   params,
 }: {
-  params: { steamId: string };
+  params: Promise<{ steamId: string }>;
 }) {
   const steamId = (await params).steamId;
 
