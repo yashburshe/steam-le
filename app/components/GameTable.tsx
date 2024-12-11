@@ -4,6 +4,7 @@ import { getUserGames } from "@/app/actions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
+import { Game } from "../types";
 
 export default function GameTable({
   persona,
@@ -14,15 +15,7 @@ export default function GameTable({
 }) {
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [csvData, setCsvData] = useState<any>([]);
-
-  interface Game {
-    appid: string;
-    img_icon_url: string;
-    time_to_beat: string;
-    name: string;
-    playtime_forever: string;
-  }
+  const [csvData, setCsvData] = useState<unknown>([]);
 
   useEffect(() => {
     async function fetchGames() {
