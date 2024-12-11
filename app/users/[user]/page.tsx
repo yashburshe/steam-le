@@ -1,3 +1,4 @@
+import { getSteamId } from "@/app/actions";
 import GameTable from "@/app/components/GameTable";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,9 +6,10 @@ import Link from "next/link";
 export default async function User({
   params,
 }: {
-  params: Promise<{ steamId: string }>;
+  params: Promise<{ user: string }>;
 }) {
-  const steamId = (await params).steamId;
+  const username = (await params).user;
+  const steamId = await getSteamId(username);
 
   const profileURL =
     "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" +

@@ -17,7 +17,7 @@ export default function Search({ nav }: { nav: boolean }) {
             nav ? "text-sm p-1 px-2" : "text-lg p-3 w-80"
           }  rounded-l-sm focus:ring-2 focus:ring-blue-600 text-slate-800`}
           type="text"
-          name="steamId"
+          name="user"
           placeholder="765XXXXXXXXXXXXXX"
         />
         <button
