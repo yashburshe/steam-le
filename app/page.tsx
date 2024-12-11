@@ -9,7 +9,7 @@ export default function Home() {
           gaming backlog.
         </p>
         <p>
-          Now also uses gets the 'Time to beat' for (almost) each game using
+          Now also uses gets the &apos;Time to beat&apos; for (almost) each game using
           IGDB
         </p>
       </div>
