@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { Game } from "../types";
+import Link from "next/link";
 
 export default function GameTable({
   persona,
@@ -23,11 +24,13 @@ export default function GameTable({
     async function fetchGames() {
       try {
         const fetchedGames = await getUserGames(steamId);
-        const csvGameData = fetchedGames.map((game) => {
+        const csvGameData = fetchedGames.map((game: Game) => {
           return {
             Game: game.name,
-            "Time to beat": game.time_to_beat,
-            "Hours Played": game.playtime_forever,
+            "Playtime Human Readable": game.playtime_hr,
+            Playtime: game.playtime,
+            "Steam Store URL": `https://store.steampowered.com/app/${game.appid}`,
+            "Game Icon": game.icon_url,
           };
         });
         setCsvData(csvGameData);
@@ -65,7 +68,7 @@ export default function GameTable({
         <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
         <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
       </svg>
-      <p>Your games are being loaded! PS: Longer libraries will take more time as the IGDB Api imposes a rate limit.</p>
+      <p>Your games are being loaded...</p>
     </div>
   ) : (
     <div className="bg-[#171c26] flex flex-col justify-center">
@@ -101,7 +104,6 @@ export default function GameTable({
           <tr className="text-xs border-b-slate-900 bg-slate-800">
             <td className="p-1 text-center">Icon</td>
             <td className="p-1 text-center">Game</td>
-            <td className="p-1 text-center">Hours to beat</td>
             <td className="p-1 text-center">Hours played</td>
           </tr>
         </thead>
@@ -113,21 +115,22 @@ export default function GameTable({
             >
               <td className="p-1">
                 <Image
-                  src={game.img_icon_url}
+                  src={game.icon_url}
                   width={32}
                   height={32}
                   alt={`Icon for game` + game.name}
                 />
               </td>
-              <td className="p-1">{game.name}</td>
-              <td className="p-1 text-center">
-                {game.time_to_beat === undefined ? "-" : game.time_to_beat}
+              <td className="p-1">
+                <Link
+                  href={`https://store.steampowered.com/app/${game.appid}`}
+                  target="_blank"
+                  className="text-xs underline"
+                >
+                  {game.name}
+                </Link>
               </td>
-              <td className="p-1 text-center">
-                {game.playtime_forever === "0h 0m"
-                  ? "-"
-                  : game.playtime_forever}
-              </td>
+              <td className="p-1 text-center">{game.playtime_hr}</td>
             </tr>
           ))}
         </tbody>
