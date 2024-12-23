@@ -6,8 +6,11 @@ export default function Search({ nav }: { nav: boolean }) {
       {nav ? (
         ""
       ) : (
-        <label htmlFor="steamId" className="flex flex-col col-span-2">
-          Steam ID
+        <label
+          htmlFor="steamId"
+          className="flex flex-col col-span-2 text-white/80"
+        >
+          Find your profile
         </label>
       )}
 
@@ -18,7 +21,7 @@ export default function Search({ nav }: { nav: boolean }) {
           }  rounded-l-sm focus:ring-2 focus:ring-blue-600 text-slate-800`}
           type="text"
           name="user"
-          placeholder="765XXXXXXXXXXXXXX"
+          placeholder="SteamID/Custom URL"
         />
         <button
           type="submit"
