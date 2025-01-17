@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@types/react-csv": "^1.1.10",
-    "next": "15.0.4",
+    "@vercel/analytics": "^1.4.1",
+    "next": "^15.1.5",
     "react": "^19.0.0",
     "react-csv": "^2.2.2",
     "react-dom": "^19.0.0"
